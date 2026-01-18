@@ -1,21 +1,81 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AI WasteWise - Demo</title>
-    <style>
-      body { font-family: Arial, sans-serif; margin: 2rem; }
-      .card { border: 1px solid #ddd; padding: 1rem; border-radius: 6px; max-width: 600px; }
-    </style>
+
+    <!-- Optional: Google Font (fallbacks included in CSS) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>AI WasteWise — Upload an image of waste</h1>
-    <div class="card">
-      <form action="/predict" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*" required/>
-        <p><button type="submit">Classify</button></p>
-      </form>
-      <p>Tip: Take a close photo of the item on a plain background.</p>
-    </div>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="brand">AI WasteWise</h1>
+        <p class="tagline">Upload a photo — get smart recycling guidance</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card upload-card" aria-labelledby="upload-heading">
+        <h2 id="upload-heading">Classify Waste</h2>
+
+        <form action="/predict" method="post" enctype="multipart/form-data" class="upload-form" novalidate>
+          <label class="file-input">
+            <input type="file" name="file" accept="image/*" required>
+            <span class="file-input-content">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5 9l7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              <strong>Choose an image</strong>
+              <small>or drag & drop here (jpg, png)</small>
+            </span>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Classify</button>
+            <button type="reset" class="btn ghost" id="clear-btn">Clear</button>
+          </div>
+
+          <p class="hint">Tip: Take a close photo of the item on a plain background for best results.</p>
+        </form>
+      </section>
+
+      <section class="card results-card" id="results" aria-live="polite" hidden>
+        <h2>Prediction Results</h2>
+        <div id="results-list" class="results-list">
+          <!-- Results injected here by the server (Flask) -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© 2026 AI WasteWise — SDG 12 | Responsible Consumption & Production</small>
+      </div>
+    </footer>
+
+    <script>
+      // Small client-side UX: preview selected filename and show results area placeholder
+      (function () {
+        const fileInput = document.querySelector('.file-input input[type="file"]');
+        const resultsSection = document.getElementById('results');
+
+        fileInput && fileInput.addEventListener('change', function () {
+          if (fileInput.files && fileInput.files.length) {
+            resultsSection.hidden = true; // server will render actual results after submission
+          }
+        });
+
+        // Clear button behaviour (resetting file input)
+        const clearBtn = document.getElementById('clear-btn');
+        clearBtn && clearBtn.addEventListener('click', function (e) {
+          const input = document.querySelector('.file-input input[type="file"]');
+          if (input) input.value = "";
+          resultsSection.hidden = true;
+        });
+      })();
+    </script>
   </body>
 </html>
