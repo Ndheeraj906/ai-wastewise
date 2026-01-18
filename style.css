@@ -1,0 +1,230 @@
+/* styles.css
+   Clean, responsive, accessible styles for the AI WasteWise index page.
+   - Uses CSS variables for easy theming.
+   - Responsive layout with max-width constraints.
+   - Styled file input with accessible focus states.
+*/
+
+:root{
+  --bg: #f6f7fb;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --accent: #0ea5a4;         /* teal */
+  --accent-600: #08988b;
+  --accent-100: #e6fffd;
+  --shadow: 0 6px 18px rgba(12, 18, 31, 0.06);
+  --radius: 12px;
+  --max-width: 980px;
+  --gap: 1.25rem;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color-scheme: light;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: linear-gradient(180deg, var(--bg), #ffffff);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  font-size:16px;
+}
+
+/* Container */
+.container{
+  width: calc(100% - 2rem);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+/* Header */
+.site-header{
+  background: linear-gradient(90deg, rgba(14,165,164,0.08), rgba(13,110,253,0.02));
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+}
+.brand{
+  margin:0;
+  font-size:1.5rem;
+  font-weight:700;
+  letter-spacing: -0.02em;
+}
+.tagline{
+  margin:0.25rem 0 0;
+  font-size:0.95rem;
+  color:var(--muted);
+}
+
+/* Cards */
+.card{
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+/* Upload card layout */
+.upload-card{
+  display: grid;
+  gap: 0.875rem;
+}
+
+/* File input styling */
+.file-input{
+  display:block;
+  position:relative;
+  width:100%;
+  border: 2px dashed rgba(15,23,42,0.06);
+  border-radius: 10px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, transform 120ms ease;
+  background: linear-gradient(180deg, rgba(14,165,164,0.02), transparent);
+  text-align: center;
+}
+.file-input input[type="file"]{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  width:100%;
+  height:100%;
+  cursor: pointer;
+}
+.file-input:focus-within,
+.file-input:hover{
+  border-color: var(--accent-600);
+  transform: translateY(-2px);
+}
+.file-input .file-input-content{
+  display:flex;
+  gap:0.75rem;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding: 0.5rem 0;
+  color: var(--text);
+}
+.file-input .icon{
+  width:40px;
+  height:40px;
+  color: var(--accent);
+  opacity:0.95;
+}
+.file-input strong{
+  display:block;
+  font-weight:600;
+  font-size:1.02rem;
+}
+.file-input small{
+  display:block;
+  color:var(--muted);
+  font-size:0.88rem;
+  margin-top:0.25rem;
+}
+
+/* Form actions */
+.form-actions{
+  display:flex;
+  gap:0.75rem;
+  margin-top:0.5rem;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.6rem 0.95rem;
+  border-radius:8px;
+  border:1px solid transparent;
+  background:transparent;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--text);
+  transition: all 140ms ease;
+}
+.btn:focus{outline:3px solid rgba(14,165,164,0.12); outline-offset:2px}
+.btn.primary{
+  background: linear-gradient(180deg, var(--accent), var(--accent-600));
+  color: white;
+  box-shadow: 0 6px 18px rgba(8,152,139,0.12);
+  border-color: transparent;
+}
+.btn.primary:hover{ transform: translateY(-2px) }
+.btn.ghost{
+  background:transparent;
+  border:1px solid rgba(15,23,42,0.06);
+  color:var(--muted);
+}
+.hint{
+  margin:0.5rem 0 0;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+/* Results list */
+.results-card{
+  margin-top: 1.5rem;
+}
+.results-list{
+  display:grid;
+  gap:0.75rem;
+  margin-top:0.75rem;
+}
+.result-item{
+  display:flex;
+  gap:0.75rem;
+  align-items:flex-start;
+  padding:0.75rem;
+  border-radius:8px;
+  border:1px solid rgba(15,23,42,0.04);
+  background: linear-gradient(180deg, #ffffff, #fbfbfc);
+}
+.result-item .meta{
+  flex:1;
+}
+.result-item .label{
+  font-weight:700;
+  font-size:1rem;
+  color:var(--text);
+}
+.result-item .confidence{
+  color:var(--muted);
+  font-size:0.9rem;
+}
+.result-item .guidance{
+  margin-top:0.35rem;
+  color:var(--muted);
+  font-size:0.95rem;
+}
+
+/* Footer */
+.site-footer{
+  margin-top:2.25rem;
+  padding:1rem 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+/* Responsive */
+@media (min-width: 720px){
+  .upload-card{
+    grid-template-columns: 1fr 360px;
+    align-items:start;
+  }
+  .results-card{
+    margin-top:0;
+  }
+}
+
+/* Accessibility & print */
+@media print{
+  body{background:white;color:black}
+  .site-header, .site-footer { display:none }
+  .card{box-shadow:none;border:1px solid #ddd}
+}
