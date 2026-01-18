@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>AI WasteWise - Demo</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; }
+      .card { border: 1px solid #ddd; padding: 1rem; border-radius: 6px; max-width: 600px; }
+    </style>
+  </head>
+  <body>
+    <h1>AI WasteWise — Upload an image of waste</h1>
+    <div class="card">
+      <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required/>
+        <p><button type="submit">Classify</button></p>
+      </form>
+      <p>Tip: Take a close photo of the item on a plain background.</p>
+    </div>
+  </body>
+</html>
