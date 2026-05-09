@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI WasteWise - Prediction Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="brand">Classification Results</h1>
+        <p class="tagline">Here is what we found in your photo</p>
+      </div>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for message in messages %}
+              <div class="alert alert-warning">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div class="results-layout">
+        <section class="card image-preview-card">
+          <h2>Uploaded Image</h2>
+          <div class="image-wrapper">
+             <img src="/uploads/{{ filename }}" alt="Uploaded waste item" class="preview-img">
+          </div>
+          <a href="/" class="btn ghost mt-1">← Upload Another</a>
+        </section>
+
+        <section class="card predictions-card">
+          <h2>Top Predictions</h2>
+          <div class="results-list">
+            {% for r in results %}
+              <div class="result-item">
+                <div class="result-header">
+                  <span class="label">{{ r.label|capitalize }}</span>
+                  <span class="score">{{ (r.score * 100)|round(1) }}% Match</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: {{ r.score * 100 }}%"></div>
+                </div>
+                <p class="guidance"><strong>Guidance:</strong> {{ r.guidance }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© 2026 AI WasteWise — SDG 12</small>
+      </div>
+    </footer>
+  </body>
+</html>

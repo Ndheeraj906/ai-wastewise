@@ -9,7 +9,7 @@ import os
 from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from PIL import Image
-from src.model import load_model, predict_image
+from model import load_model, predict_image
 
 UPLOAD_FOLDER = "tmp_uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
@@ -19,6 +19,11 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.secret_key = os.environ.get("FLASK_SECRET", "dev-key")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+from flask import send_from_directory
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 # Load model (weights optional)
 MODEL_WEIGHTS = os.environ.get("MODEL_WEIGHTS", "")
