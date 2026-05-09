@@ -2,6 +2,9 @@
 
 AI WasteWise — An AI-powered Campus Waste Segregation & Recycling Assistant
 
+## Live Demo
+🚀 **[Play with the Live App on Google Cloud Run](https://ai-wastewise-478532845626.us-central1.run.app)**
+
 Summary
 - Project type: Prototype web demo + training pipeline + documentation
 - SDG primary alignment: SDG 12 — Responsible Consumption and Production
